@@ -17,16 +17,16 @@ A recommender-system project that explores whether a user's musical-instrument i
 ## System design
 
 ```mermaid
-flowchart LR
-    A[Amazon Reviews 2023] --> B[Preprocessing]
-    B --> C[TF-IDF content model]
-    B --> D[SVD collaborative model]
-    B --> E[Weighted popularity model]
-    C --> F[Score normalization]
+graph LR
+    A["Amazon Reviews 2023"] --> B["Preprocessing"]
+    B --> C["TF-IDF content model"]
+    B --> D["SVD collaborative model"]
+    B --> E["Weighted popularity model"]
+    C --> F["Score normalization"]
     D --> F
     E --> F
-    F --> G[Weighted re-ranking]
-    G --> H[Top-N recommendations]
+    F --> G["Weighted re-ranking"]
+    G --> H["Top-N recommendations"]
 ```
 
 The hybrid score used in the experiment is:
