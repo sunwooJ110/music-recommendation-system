@@ -12,4 +12,3 @@ svd_collaborative_instrument2music.joblib
 ```
 
 These files are reproducible from the source notebooks and raw data, so they are intentionally excluded from Git.
-

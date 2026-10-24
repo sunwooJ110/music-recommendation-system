@@ -44,7 +44,7 @@ final_score = 0.5 * collaborative + 0.3 * content + 0.2 * popularity
 5. Train popularity, content-based, and collaborative models.
 6. Normalize model scores and produce a weighted Top-N ranking.
 
-The raw data is not included in this repository. See [data/README.md](data/README.md) for the source and expected filenames.
+The raw dataset files are not included in this repository. The historical notebooks retain small rendered previews from exploratory analysis. See [data/README.md](data/README.md) for the source and expected filenames.
 
 ## Results
 
@@ -61,14 +61,14 @@ The cross-domain SVD experiment produced:
 
 The notebook evaluated up to 200 users with interactions rated 4 or higher as relevant items.
 
-| Model | Precision@10 | Recall@10 | F1@10 | NDCG@10 | MRR@10 |
-|---|---:|---:|---:|---:|---:|
-| Popularity | 0.0005 | 0.0002 | 0.0003 | 0.0020 | 0.0007 |
-| Content-based TF-IDF | **0.0925** | **0.2087** | **0.1123** | **0.8309** | **0.8425** |
-| Collaborative SVD | 0.0005 | 0.0005 | 0.0005 | 0.0020 | 0.0007 |
-| Hybrid re-ranking | 0.0050 | 0.0075 | 0.0055 | 0.0119 | 0.0129 |
+| Model | Precision@10 | Recall@10 | F1@10 | MRR@10 |
+|---|---:|---:|---:|---:|
+| Popularity | 0.0005 | 0.0002 | 0.0003 | 0.0007 |
+| Content-based TF-IDF | **0.0925** | **0.2087** | **0.1123** | **0.8425** |
+| Collaborative SVD | 0.0005 | 0.0005 | 0.0005 | 0.0007 |
+| Hybrid re-ranking | 0.0050 | 0.0075 | 0.0055 | 0.0129 |
 
-The content-based model performed best in this experiment. The result suggests that item text transferred across domains more reliably than collaborative factors trained on a disjoint instrument catalog.
+The notebook also printed values labeled `NDCG@10`, but its helper loses item correspondence before calling `ndcg_score`; those values are omitted here because they are not valid NDCG estimates. The content-based run produced the strongest displayed values, but its candidate and seed setup differs from the collaborative evaluation. These exploratory outputs therefore cannot establish cross-domain effectiveness or a fair model comparison.
 
 ## Repository structure
 
@@ -111,6 +111,7 @@ I owned the final integration of the recommendation pipeline, including cross-do
 
 - The ranking evaluation is exploratory and uses only the first 200 eligible users.
 - The current content-based evaluation can include the seed item among candidates, so its ranking metrics may be optimistic.
+- The notebook's legacy NDCG implementation must be corrected and recomputed before that metric can be reported.
 - Instrument and music catalogs have disjoint item IDs. An SVD model trained only on instrument items cannot learn latent factors for unseen music items and relies heavily on fallback estimates.
 - Hybrid weights were selected heuristically rather than tuned on a separate validation set.
 - A production evaluation should use temporal or leave-one-out splits, exclude seen items, and tune weights on held-out users.
